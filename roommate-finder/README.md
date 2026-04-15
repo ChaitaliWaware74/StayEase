@@ -17,7 +17,7 @@ StayEase is a full-stack web application built using the MERN stack that helps u
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 - React.js
@@ -92,7 +92,7 @@ http://localhost:5000/api
 
 ---
 
-## 📸 Screenshots
+##  Screenshots
 
 (Add your project screenshots here)
 
