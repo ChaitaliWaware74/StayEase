@@ -23,7 +23,7 @@ export default function Register() {
       alert("Registration successful! Please login.");
       navigate("/login");
     } catch (err) {
-      alert("Registration failed. Please try again.");
+      alert(err.response?.data?.msg || "Registration failed. Please try again.");
     } finally {
       setLoading(false);
     }

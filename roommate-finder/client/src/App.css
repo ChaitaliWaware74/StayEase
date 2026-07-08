@@ -19,7 +19,7 @@
 
 .hero {
   position: relative;
-
+  background: linear-gradient(135deg, #eef6ff, #dbeafe);
   .base,
   .framework,
   .vite {

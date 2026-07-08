@@ -22,6 +22,10 @@ export default function AddListing() {
       data.append("images", images[i]);
     }
 
+    for (let pair of data.entries()) {
+  console.log(pair[0], pair[1]);
+}
+
     try {
       await API.post("/listings", data);
       alert("Listing added successfully!");
@@ -78,6 +82,25 @@ export default function AddListing() {
                 <option value="Shared Room">Shared Room</option>
               </select>
             </div>
+          </div>
+
+
+          <div className="form-group">
+            <label>Furnished</label>
+            <select onChange={(e) => setForm({ ...form, furnished: e.target.value })}>
+              <option value="">Select</option>
+              <option value="Furnished">Furnished</option>
+              <option value="Semi-Furnished">Semi-Furnished</option>
+              <option value="Unfurnished">Unfurnished</option>
+            </select>
+          </div>
+
+
+
+          <div className="form-row">
+
+
+
           </div>
 
           <div className="form-row">

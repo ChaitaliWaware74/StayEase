@@ -104,6 +104,21 @@ export default function EditListing() {
             </div>
           </div>
 
+          <div className="form-group">
+  <label>Furnished</label>
+  <select
+    value={form.furnished || ""}
+    onChange={(e) =>
+      setForm({ ...form, furnished: e.target.value })
+    }
+  >
+    <option value="">Select</option>
+    <option value="Furnished">Furnished</option>
+    <option value="Semi-Furnished">Semi-Furnished</option>
+    <option value="Unfurnished">Unfurnished</option>
+  </select>
+</div>
+    
           <div className="edit-form-row">
             <div className="edit-form-group">
               <label>Gender Preference</label>

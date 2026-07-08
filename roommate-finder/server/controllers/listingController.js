@@ -8,12 +8,11 @@ export const createListing = async (req, res) => {
       location: req.body.location,
       rent: req.body.rent,
       roomType: req.body.roomType,
+      furnished: req.body.furnished,
       genderPreference: req.body.genderPreference,
       contactPhone: req.body.contactPhone,
       description: req.body.description,
-      address: req.body.address, // ✅ FIXED
-
-      // ✅ FIX BOOLEAN
+      address: req.body.address,
       parking: req.body.parking === "true",
       electricityIncluded: req.body.electricityIncluded === "true",
       water24: req.body.water24 === "true",
@@ -30,7 +29,15 @@ export const createListing = async (req, res) => {
 
 // GET ALL
 export const getListings = async (req, res) => {
-  const { location, rent, genderPreference } = req.query;
+  
+
+  const {
+    location,
+    rent,
+    roomType,
+    furnished,
+    genderPreference
+  } = req.query;
 
   let filter = {};
 
@@ -38,10 +45,18 @@ export const getListings = async (req, res) => {
     filter.location = { $regex: location, $options: "i" };
 
   if (rent)
-    filter.rent = { $lte: rent };
+    filter.rent = { $lte: Number(rent) };
+
+  if (roomType)
+    filter.roomType = roomType;
+
+  if (furnished)
+    filter.furnished = furnished;
 
   if (genderPreference)
     filter.genderPreference = genderPreference;
+
+  
 
   const listings = await Listing.find(filter).sort({ createdAt: -1 });
 
@@ -70,19 +85,18 @@ export const updateListing = async (req, res) => {
         location: req.body.location,
         rent: req.body.rent,
         roomType: req.body.roomType,
+        furnished: req.body.furnished,
         genderPreference: req.body.genderPreference,
         contactPhone: req.body.contactPhone,
         description: req.body.description,
-        address: req.body.address, // ✅ FIXED
-
-        // ✅ FIX BOOLEAN
+        address: req.body.address,
         parking: req.body.parking === "true",
         electricityIncluded: req.body.electricityIncluded === "true",
         water24: req.body.water24 === "true",
 
-        ...(req.files && {
-          images: req.files.map(file => file.path)
-        })
+        ...(req.files?.length > 0 && {
+  images: req.files.map(file => file.path),
+})
       },
       { returnDocument: "after" }
     );

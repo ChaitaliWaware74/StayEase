@@ -5,6 +5,10 @@ const listingSchema = new mongoose.Schema({
   location: String,
   rent: Number,
   roomType: String,
+  furnished: {
+  type: String,
+  enum: ["Furnished", "Semi-Furnished", "Unfurnished"],
+},
   propertyType: String,
   genderPreference: String,
   requiredCount: Number,

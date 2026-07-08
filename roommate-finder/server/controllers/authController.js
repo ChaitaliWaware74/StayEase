@@ -35,7 +35,7 @@ export const register = async (req, res) => {
     });
 
   } catch (err) {
-    console.error(err); // 🔥 IMPORTANT
+    console.error(err); // IMPORTANT
     res.status(500).json({ msg: "Server error" });
   }
 };
@@ -76,7 +76,7 @@ export const login = async (req, res) => {
     });
 
   } catch (err) {
-    console.error(err); // 🔥 IMPORTANT
+    console.error(err); // IMPORTANT
     res.status(500).json({ msg: "Server error" });
   }
 };

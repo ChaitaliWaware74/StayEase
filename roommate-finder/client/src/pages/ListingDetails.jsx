@@ -105,6 +105,14 @@ export default function ListingDetails() {
             </div>
 
             <div className="detail-item">
+              <FiHome className="detail-icon" />
+              <div>
+                <strong>Furnishing</strong>
+                <p>{listing.furnished || "Not Specified"}</p>
+              </div>
+            </div>
+
+            <div className="detail-item">
               <FiUsers className="detail-icon" />
               <div>
                 <strong>Preference</strong>

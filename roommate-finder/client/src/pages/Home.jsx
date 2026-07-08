@@ -13,6 +13,8 @@ export default function Home() {
   const [filters, setFilters] = useState({
     location: "",
     rent: "",
+    roomType: "",
+    furnished: "",
     genderPreference: ""
   });
 
@@ -62,11 +64,34 @@ export default function Home() {
           </div>
 
           <div className="filter-input">
+            <FiHome className="input-icon" />
+            <select onChange={(e) => setFilters({ ...filters, roomType: e.target.value })}>
+              <option value="">Room Type</option>
+              <option value="1RK">1RK</option>
+              <option value="1BHK">1BHK</option>
+              <option value="2BHK">2BHK</option>
+              <option value="3BHK">3BHK</option>
+              <option value="Shared Room">Shared Room</option>
+            </select>
+          </div>
+
+          <div className="filter-input">
+            <FiUsers className="input-icon" />
+            <select onChange={(e) => setFilters({ ...filters, furnished: e.target.value })}>
+              <option value="">Furnishing</option>
+              <option value="Furnished">Furnished</option>
+              <option value="Semi-Furnished">Semi-Furnished</option>
+              <option value="Unfurnished">Unfurnished</option>
+            </select>
+          </div>
+
+          <div className="filter-input">
             <FiUsers className="input-icon" />
             <select onChange={(e) => setFilters({ ...filters, genderPreference: e.target.value })}>
-              <option value="">Any Gender</option>
+              <option value="">Gender</option>
               <option value="Male">Male</option>
-              <option value="Female">Female</option>
+                <option value="Female">Female</option>
+                <option value="Any">Any</option>
             </select>
           </div>
 
@@ -85,48 +110,48 @@ export default function Home() {
         {loading ? (
           <div className="loading-spinner">Loading amazing properties...</div>
         ) : (
-          // pages/Home.jsx - Updated image section
-// Replace just the property-card section with this:
+          
+          <div className="properties-grid">
+            {listings.map((listing) => (
+              <div
+                key={listing._id}
+                className="property-card"
+                onClick={() => navigate(`/listing/${listing._id}`)}
+              >
+                {listing.images?.length > 0 && (
+                  <div className="property-image">
+                    <img
+                      src={`http://localhost:5000/${listing.images[0]}`}
+                      alt={listing.title}
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
+                      }}
+                    />
+                    <div className="price-tag">₹{listing.rent?.toLocaleString()}/mo</div>
+                  </div>
+                )}
+                <div className="property-info">
+                  <h3>{listing.title}</h3>
+                  <div className="property-details">
+                    <span><FiMapPin /> {listing.location}</span>
+                    <span><FiHome /> {listing.roomType || "Room"}</span>
+                    <span><FiUsers /> {listing.genderPreference || "Any"}</span>
+                  </div>
+                  {listing.description && (
+                    <p className="property-description">
+                      {listing.description.length > 100
+                        ? listing.description.substring(0, 100) + "..."
+                        : listing.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
 
-<div className="properties-grid">
-  {listings.map((listing) => (
-    <div
-      key={listing._id}
-      className="property-card"
-      onClick={() => navigate(`/listing/${listing._id}`)}
-    >
-      {listing.images?.length > 0 && (
-        <div className="property-image">
-          <img 
-            src={`http://localhost:5000/${listing.images[0]}`} 
-            alt={listing.title}
-            onError={(e) => {
-              e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
-            }}
-          />
-          <div className="price-tag">₹{listing.rent?.toLocaleString()}/mo</div>
-        </div>
-      )}
-      <div className="property-info">
-        <h3>{listing.title}</h3>
-        <div className="property-details">
-          <span><FiMapPin /> {listing.location}</span>
-          <span><FiHome /> {listing.roomType || "Room"}</span>
-          <span><FiUsers /> {listing.genderPreference || "Any"}</span>
-        </div>
-        {listing.description && (
-          <p className="property-description">
-            {listing.description.length > 100
-              ? listing.description.substring(0, 100) + "..."
-              : listing.description}
-          </p>
-        )}
-      </div>
-    </div>
-  ))}
-</div>
-        )}
-      </div>
-    </div>
+    
   );
 }
