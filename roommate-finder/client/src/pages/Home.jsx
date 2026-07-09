@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import API from "../services/api";
 import { FiMapPin, FiDollarSign, FiHome, FiUsers, FiSearch } from "react-icons/fi";
+import defaultHouse from "../assets/no.jpg";
 import "../styles/main.css";
 
 export default function Home() {
@@ -118,18 +119,22 @@ export default function Home() {
                 className="property-card"
                 onClick={() => navigate(`/listing/${listing._id}`)}
               >
-                {listing.images?.length > 0 && (
-                  <div className="property-image">
-                    <img
-                      src={`http://localhost:5000/${listing.images[0]}`}
-                      alt={listing.title}
-                      onError={(e) => {
-                        e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
-                      }}
-                    />
-                    <div className="price-tag">₹{listing.rent?.toLocaleString()}/mo</div>
-                  </div>
-                )}
+                <div className="property-image">
+  <img
+    src={
+      listing.images?.length > 0
+        ? `http://localhost:5000/${listing.images[0]}`
+        : defaultHouse
+    }
+    alt={listing.title}
+    onError={(e) => {
+      e.target.src = defaultHouse;
+    }}
+  />
+  <div className="price-tag">
+    ₹{listing.rent?.toLocaleString()}/mo
+  </div>
+</div>
                 <div className="property-info">
                   <h3>{listing.title}</h3>
                   <div className="property-details">
